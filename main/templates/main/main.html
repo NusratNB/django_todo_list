@@ -1,4 +1,40 @@
-{%load static%}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+My To do list
+{% endblock %}
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'main/style.css' %}">
+{%endblock%}
+
+{% block content %}
+<!-- todo_list/templates/todo_list/index.html -->
+
+<h1>My Todo List</h1>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="text" name="title" placeholder="Title">
+    <textarea name="description" placeholder="Description"></textarea>
+    <button type="submit">Add</button>
+</form>
+
+<ul>
+    {% for item in todo_items %}
+    <li>
+        <input type="checkbox" name="completed" {% if item.completed %}checked{% endif %}>
+        {{ item.title }}
+        {% if not item.completed %}
+        <a href="{% url 'complete_item' item.id %}">Complete</a>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+
+<!-- {%load static%}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,8 +50,11 @@
 <body>
     <div id="myDIV" class="header">
         <h2>My To Do List</h2>
-        <input type="text" id="myInput" placeholder="Title...">
-        <button class="addBtn">Add</button>
+        <form method="POST">
+            {}
+            <input type="text" id="myInput" placeholder="Title...">
+            <button class="addBtn">Add</button>
+        </form>
     </div>
 
     <ul id="myUL">
@@ -28,4 +67,4 @@
     </ul>
 </body>
 
-</html>
+</html> -->
